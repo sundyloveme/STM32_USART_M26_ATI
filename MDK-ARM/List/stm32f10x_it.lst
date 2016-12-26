@@ -23243,7 +23243,7 @@ N#endif /* __STM32F10x_IT_H */
 N
 N/******************* (C) COPYRIGHT 2010 STMicroelectronics *****END OF FILE****/
 L 25 "..\USER\stm32f10x_it.c" 2
-N
+N#define POOLSIZE 256
 N/** @addtogroup STM32F10x_StdPeriph_Template
 N  * @{
 N  */
@@ -23397,6 +23397,8 @@ N			{
 N				received_ATI_OK=1;
 N			}
 N			i_BufferM26++;
+N			i_BufferM26 = i_BufferM26 % POOLSIZE;
+X			i_BufferM26 = i_BufferM26 % 256;
 N		}
 N	}
 N}

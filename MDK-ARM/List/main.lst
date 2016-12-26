@@ -25963,6 +25963,21 @@ N    }
 N}
 N
 N/**
+N * @brief 初始化函数 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标
+N * @param 
+N * @retval 
+N * @author Sundy
+N */
+Nvoid intiSomeThing()
+N{
+N	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
+N	received_ATI_OK=0;
+N    i_BufferM26=0;
+N    memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE); 
+X    memset(bufferM26, 0, sizeof(uint8_t)*256); 
+N}
+N
+N/**
 N * @brief 入口    
 N * @param  None
 N * @retval None
@@ -25985,22 +26000,22 @@ N    /* PB3是USART的电源控制 */
 N    GPIO_ResetBits(GPIOB,GPIO_Pin_3);
 X    GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x0008));
 N			
-N    delay_init() ;
+N    delay_init();
 N    GSM_POWER(1);
 X    (1 ? GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x1000)):GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x1000)));
 N    M26_Init();
-N	
+N
 N    /* M26初始化的响应 */
 N	/* received_ATI_OK标志位起来说明ATI响应结束 */
 N	while(received_ATI_OK!=1)
 N	{
 N	}
-N    /* 响应输出成功后必须初始化 */
-N	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-N	received_ATI_OK=0;
-N    memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-X    memset(bufferM26, 0, sizeof(uint8_t)*256);
-N    i_BufferM26=0;
+N    /* 响应输出成功后必须初始化 */ 
+N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N    intiSomeThing();
+N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
 N    /* 屏幕上打印启动成功 */
 N	sendStrToUsart1("THE M26 START SUCCESSFULLY!\n");
 N	sendStrToUsart1("Please input ATI code...\n");
@@ -26010,22 +26025,22 @@ N	M26_SendStr("AT\r\n");
 N	while(received_ATI_OK!=1)
 N	{
 N	}
-W "..\USER\main.c" 188 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+W "..\USER\main.c" 201 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
 N	sendStrToUsart1(bufferM26);
 N	sendStrToUsart1("===============================\n");
-N	/* 响应输出成功后必须初始化 */
-N	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-N	received_ATI_OK=0;
-N	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-X	memset(bufferM26, 0, sizeof(uint8_t)*256);
-N	i_BufferM26=0;
+N    /* 响应输出成功后必须初始化 */  
+N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N	intiSomeThing();
+N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
 N	
 N	/* 发送"ATI" 并返回响应 */
 N	M26_SendStr("ATI\r\n");
 N	while(received_ATI_OK!=1)
 N	{
 N	}
-W "..\USER\main.c" 201 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+W "..\USER\main.c" 213 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
 N	sendStrToUsart1(bufferM26);
 N	sendStrToUsart1("===============================\n");
 N	/* 解析Revision */
@@ -26045,46 +26060,38 @@ N            }
 N        }
 N    }
 N    sendStrToUsart1(p_temp);
-N    /* 响应输出成功后必须初始化 */
-N	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-N	received_ATI_OK=0;
-N	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-X	memset(bufferM26, 0, sizeof(uint8_t)*256);
-N	i_BufferM26=0;
+N    /* 响应输出成功后必须初始化 */   
+N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N	intiSomeThing();
+N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断 
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
 N	
 N    /* 发送"AT+CGMI" 并返回响应 */
-N	M26_SendStr("AT+CGMI\r\n");
-N	while(received_ATI_OK!=1)
-N	{
-N	}
-W "..\USER\main.c" 229 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
-N	sendStrToUsart1(bufferM26);
-N	sendStrToUsart1("===============================\n");
-N	/* 解析Revision */
-N    //char *p_temp;
-N    p_temp=NULL;
-X    p_temp=0;
-N    if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
-X    if( (p_temp = ATI_wordExpress("Revision:")) != 0)
-N    {
-N        for(uint8_t i=0;i<=POOLSIZE;i++)
-X        for(uint8_t i=0;i<=256;i++)
-N        {
-N            if(p_temp[i]=='\n')
-N            {
-N                /* 区分Value与其他字符 */
-N                p_temp[i]=0;
-N                break;
-N            }
-N        }
-N    }
-N    sendStrToUsart1(p_temp);
-N    /* 响应输出成功后必须初始化 */
-N	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-N	received_ATI_OK=0;
-N	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-X	memset(bufferM26, 0, sizeof(uint8_t)*256);
-N	i_BufferM26=0;
+N	// M26_SendStr("AT+CGMI\r\n");
+N	// while(received_ATI_OK!=1)
+N	// {
+N	// }
+N	// sendStrToUsart1(bufferM26);
+N	// sendStrToUsart1("===============================\n");
+N	// /* 解析Revision */
+N    // //char *p_temp;
+N    // p_temp=NULL;
+N    // if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
+N    // {
+N    //     for(uint8_t i=0;i<=POOLSIZE;i++)
+N    //     {
+N    //         if(p_temp[i]=='\n')
+N    //         {
+N    //             /* 区分Value与其他字符 */
+N    //             p_temp[i]=0;
+N    //             break;
+N    //         }
+N    //     }
+N    // }
+N    // sendStrToUsart1(p_temp);
+N    // /* 响应输出成功后必须初始化 */   
+N	// intiSomeThing();
 N	
 N	/* 串口接收ATI CODE 返回ATI响应*/
 N	// while(1)

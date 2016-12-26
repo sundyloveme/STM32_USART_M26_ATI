@@ -178,42 +178,42 @@
 ;;;162    	/* USART2接收到字符 */
 ;;;163    	if(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == SET)
 000002  2120              MOVS     r1,#0x20
-000004  4817              LDR      r0,|L10.100|
+000004  481c              LDR      r0,|L10.120|
 000006  f7fffffe          BL       USART_GetFlagStatus
 00000a  2801              CMP      r0,#1
-00000c  d129              BNE      |L10.98|
+00000c  d133              BNE      |L10.118|
 ;;;164    	{
 ;;;165    		bufferM26[i_BufferM26] = USART_ReceiveData(USART2);
-00000e  4815              LDR      r0,|L10.100|
+00000e  481a              LDR      r0,|L10.120|
 000010  f7fffffe          BL       USART_ReceiveData
-000014  4914              LDR      r1,|L10.104|
+000014  4919              LDR      r1,|L10.124|
 000016  6809              LDR      r1,[r1,#0]  ; bufferM26
-000018  4a14              LDR      r2,|L10.108|
+000018  4a19              LDR      r2,|L10.128|
 00001a  f9b22000          LDRSH    r2,[r2,#0]  ; i_BufferM26
 00001e  5488              STRB     r0,[r1,r2]
 ;;;166    		
 ;;;167    		/* 接收到非空字符时下标后移 */
 ;;;168    		if(bufferM26[i_BufferM26]!=0)
-000020  4811              LDR      r0,|L10.104|
+000020  4816              LDR      r0,|L10.124|
 000022  6800              LDR      r0,[r0,#0]  ; bufferM26
-000024  4911              LDR      r1,|L10.108|
+000024  4916              LDR      r1,|L10.128|
 000026  f9b11000          LDRSH    r1,[r1,#0]  ; i_BufferM26
 00002a  5c40              LDRB     r0,[r0,r1]
-00002c  b1c8              CBZ      r0,|L10.98|
+00002c  b318              CBZ      r0,|L10.118|
 ;;;169    		{
 ;;;170    			/* ATI响应是否结束 */
 ;;;171    			if(bufferM26[i_BufferM26]=='K' && bufferM26[i_BufferM26-1]=='O')
-00002e  480e              LDR      r0,|L10.104|
+00002e  4813              LDR      r0,|L10.124|
 000030  6800              LDR      r0,[r0,#0]  ; bufferM26
-000032  490e              LDR      r1,|L10.108|
+000032  4913              LDR      r1,|L10.128|
 000034  f9b11000          LDRSH    r1,[r1,#0]  ; i_BufferM26
 000038  5c40              LDRB     r0,[r0,r1]
 00003a  284b              CMP      r0,#0x4b
 00003c  d10b              BNE      |L10.86|
-00003e  480b              LDR      r0,|L10.108|
+00003e  4810              LDR      r0,|L10.128|
 000040  f9b00000          LDRSH    r0,[r0,#0]  ; i_BufferM26
 000044  1e40              SUBS     r0,r0,#1
-000046  4908              LDR      r1,|L10.104|
+000046  490d              LDR      r1,|L10.124|
 000048  6809              LDR      r1,[r1,#0]  ; bufferM26
 00004a  5c08              LDRB     r0,[r1,r0]
 00004c  284f              CMP      r0,#0x4f
@@ -221,32 +221,40 @@
 ;;;172    			{
 ;;;173    				received_ATI_OK=1;
 000050  2001              MOVS     r0,#1
-000052  4907              LDR      r1,|L10.112|
+000052  490c              LDR      r1,|L10.132|
 000054  7008              STRB     r0,[r1,#0]
                   |L10.86|
 ;;;174    			}
 ;;;175    			i_BufferM26++;
-000056  4805              LDR      r0,|L10.108|
+000056  480a              LDR      r0,|L10.128|
 000058  8800              LDRH     r0,[r0,#0]  ; i_BufferM26
 00005a  1c40              ADDS     r0,r0,#1
 00005c  b200              SXTH     r0,r0
-00005e  4903              LDR      r1,|L10.108|
+00005e  4908              LDR      r1,|L10.128|
 000060  8008              STRH     r0,[r1,#0]
-                  |L10.98|
-;;;176    		}
-;;;177    	}
-;;;178    }
-000062  bd10              POP      {r4,pc}
-;;;179    /******************************************************************************/
+;;;176    			i_BufferM26 = i_BufferM26 % POOLSIZE;
+000062  f9b10000          LDRSH    r0,[r1,#0]  ; i_BufferM26
+000066  17c1              ASRS     r1,r0,#31
+000068  eb006111          ADD      r1,r0,r1,LSR #24
+00006c  1209              ASRS     r1,r1,#8
+00006e  eba02101          SUB      r1,r0,r1,LSL #8
+000072  4a03              LDR      r2,|L10.128|
+000074  8011              STRH     r1,[r2,#0]
+                  |L10.118|
+;;;177    		}
+;;;178    	}
+;;;179    }
+000076  bd10              POP      {r4,pc}
+;;;180    /******************************************************************************/
                           ENDP
 
-                  |L10.100|
+                  |L10.120|
                           DCD      0x40004400
-                  |L10.104|
+                  |L10.124|
                           DCD      bufferM26
-                  |L10.108|
+                  |L10.128|
                           DCD      i_BufferM26
-                  |L10.112|
+                  |L10.132|
                           DCD      received_ATI_OK
 
                           AREA ||i.UsageFault_Handler||, CODE, READONLY, ALIGN=1

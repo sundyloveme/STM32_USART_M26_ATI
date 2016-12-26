@@ -65,78 +65,78 @@
                           AREA ||i.GPIO_Configuration||, CODE, READONLY, ALIGN=2
 
                   GPIO_Configuration PROC
-;;;291    
-;;;292    void GPIO_Configuration(void)
+;;;299    
+;;;300    void GPIO_Configuration(void)
 000000  b508              PUSH     {r3,lr}
-;;;293    {
-;;;294        GPIO_InitTypeDef GPIO_InitStructure;
-;;;295    
-;;;296        GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
+;;;301    {
+;;;302        GPIO_InitTypeDef GPIO_InitStructure;
+;;;303    
+;;;304        GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
 000002  2101              MOVS     r1,#1
 000004  481d              LDR      r0,|L2.124|
 000006  f7fffffe          BL       GPIO_PinRemapConfig
-;;;297    
-;;;298        /* USART1_TX -> PA9 , USART1_RX ->	PA10 */
-;;;299        GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_9;
+;;;305    
+;;;306        /* USART1_TX -> PA9 , USART1_RX ->	PA10 */
+;;;307        GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_9;
 00000a  f44f7000          MOV      r0,#0x200
 00000e  f8ad0000          STRH     r0,[sp,#0]
-;;;300        GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+;;;308        GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
 000012  2018              MOVS     r0,#0x18
 000014  f88d0003          STRB     r0,[sp,#3]
-;;;301        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;309        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 000018  2003              MOVS     r0,#3
 00001a  f88d0002          STRB     r0,[sp,#2]
-;;;302        GPIO_Init(GPIOA, &GPIO_InitStructure);
+;;;310        GPIO_Init(GPIOA, &GPIO_InitStructure);
 00001e  4669              MOV      r1,sp
 000020  4817              LDR      r0,|L2.128|
 000022  f7fffffe          BL       GPIO_Init
-;;;303    
-;;;304        GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10;
+;;;311    
+;;;312        GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10;
 000026  f44f6080          MOV      r0,#0x400
 00002a  f8ad0000          STRH     r0,[sp,#0]
-;;;305        GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IPU;
+;;;313        GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IPU;
 00002e  2048              MOVS     r0,#0x48
 000030  f88d0003          STRB     r0,[sp,#3]
-;;;306        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;314        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 000034  2003              MOVS     r0,#3
 000036  f88d0002          STRB     r0,[sp,#2]
-;;;307        GPIO_Init(GPIOA, &GPIO_InitStructure);
+;;;315        GPIO_Init(GPIOA, &GPIO_InitStructure);
 00003a  4669              MOV      r1,sp
 00003c  4810              LDR      r0,|L2.128|
 00003e  f7fffffe          BL       GPIO_Init
-;;;308    
-;;;309        // pin2,3,4,9可能对应电源
-;;;310        GPIO_InitStructure.GPIO_Pin     = GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_9;  
+;;;316    
+;;;317        // pin2,3,4,9可能对应电源
+;;;318        GPIO_InitStructure.GPIO_Pin     = GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_9;  
 000042  f44f7007          MOV      r0,#0x21c
 000046  f8ad0000          STRH     r0,[sp,#0]
-;;;311        GPIO_InitStructure.GPIO_Speed   = GPIO_Speed_50MHz;
+;;;319        GPIO_InitStructure.GPIO_Speed   = GPIO_Speed_50MHz;
 00004a  2003              MOVS     r0,#3
 00004c  f88d0002          STRB     r0,[sp,#2]
-;;;312        GPIO_InitStructure.GPIO_Mode    = GPIO_Mode_Out_PP;
+;;;320        GPIO_InitStructure.GPIO_Mode    = GPIO_Mode_Out_PP;
 000050  2010              MOVS     r0,#0x10
 000052  f88d0003          STRB     r0,[sp,#3]
-;;;313        GPIO_Init(GPIOB,&GPIO_InitStructure);
+;;;321        GPIO_Init(GPIOB,&GPIO_InitStructure);
 000056  4669              MOV      r1,sp
 000058  480a              LDR      r0,|L2.132|
 00005a  f7fffffe          BL       GPIO_Init
-;;;314    
-;;;315        // M26的电源的引脚
-;;;316        GPIO_InitStructure.GPIO_Pin = GSM_PWR;
+;;;322    
+;;;323        // M26的电源的引脚
+;;;324        GPIO_InitStructure.GPIO_Pin = GSM_PWR;
 00005e  f44f5080          MOV      r0,#0x1000
 000062  f8ad0000          STRH     r0,[sp,#0]
-;;;317        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;325        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 000066  2003              MOVS     r0,#3
 000068  f88d0002          STRB     r0,[sp,#2]
-;;;318        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+;;;326        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 00006c  2010              MOVS     r0,#0x10
 00006e  f88d0003          STRB     r0,[sp,#3]
-;;;319        GPIO_Init(GPIOA, &GPIO_InitStructure);	
+;;;327        GPIO_Init(GPIOA, &GPIO_InitStructure);	
 000072  4669              MOV      r1,sp
 000074  4802              LDR      r0,|L2.128|
 000076  f7fffffe          BL       GPIO_Init
-;;;320    }
+;;;328    }
 00007a  bd08              POP      {r3,pc}
-;;;321    
+;;;329    
                           ENDP
 
                   |L2.124|
@@ -149,109 +149,109 @@
                           AREA ||i.NVIC_Configuration||, CODE, READONLY, ALIGN=1
 
                   NVIC_Configuration PROC
-;;;321    
-;;;322    void NVIC_Configuration(void) //优先级
+;;;329    
+;;;330    void NVIC_Configuration(void) //优先级
 000000  b508              PUSH     {r3,lr}
-;;;323    {
-;;;324    
-;;;325        NVIC_InitTypeDef NVIC_InitStructure; 
-;;;326        //NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1); 
-;;;327        NVIC_InitStructure.NVIC_IRQChannel                   = USART1_IRQn;
+;;;331    {
+;;;332    
+;;;333        NVIC_InitTypeDef NVIC_InitStructure; 
+;;;334        //NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1); 
+;;;335        NVIC_InitStructure.NVIC_IRQChannel                   = USART1_IRQn;
 000002  2025              MOVS     r0,#0x25
 000004  f88d0000          STRB     r0,[sp,#0]
-;;;328        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+;;;336        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 000008  2000              MOVS     r0,#0
 00000a  f88d0001          STRB     r0,[sp,#1]
-;;;329        NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 1;
+;;;337        NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 1;
 00000e  2001              MOVS     r0,#1
 000010  f88d0002          STRB     r0,[sp,#2]
-;;;330        NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
+;;;338        NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
 000014  f88d0003          STRB     r0,[sp,#3]
-;;;331        NVIC_Init(&NVIC_InitStructure);
+;;;339        NVIC_Init(&NVIC_InitStructure);
 000018  4668              MOV      r0,sp
 00001a  f7fffffe          BL       NVIC_Init
-;;;332    }
+;;;340    }
 00001e  bd08              POP      {r3,pc}
-;;;333    
+;;;341    
                           ENDP
 
 
                           AREA ||i.RCC_Configuration||, CODE, READONLY, ALIGN=1
 
                   RCC_Configuration PROC
-;;;282     */
-;;;283    void RCC_Configuration(void) 
+;;;290     */
+;;;291    void RCC_Configuration(void) 
 000000  b510              PUSH     {r4,lr}
-;;;284    {
-;;;285        //SystemInit();//72m
-;;;286        RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,   ENABLE);
+;;;292    {
+;;;293        //SystemInit();//72m
+;;;294        RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,   ENABLE);
 000002  2101              MOVS     r1,#1
 000004  4608              MOV      r0,r1
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;287        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,  ENABLE);
+;;;295        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,  ENABLE);
 00000a  2101              MOVS     r1,#1
 00000c  2004              MOVS     r0,#4
 00000e  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;288        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,  ENABLE);
+;;;296        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,  ENABLE);
 000012  2101              MOVS     r1,#1
 000014  2008              MOVS     r0,#8
 000016  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;289        RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+;;;297        RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
 00001a  2101              MOVS     r1,#1
 00001c  0388              LSLS     r0,r1,#14
 00001e  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;290    }
+;;;298    }
 000022  bd10              POP      {r4,pc}
-;;;291    
+;;;299    
                           ENDP
 
 
                           AREA ||i.USART_Configuration||, CODE, READONLY, ALIGN=2
 
                   USART_Configuration PROC
-;;;334    /* Configure the USART1 synchronous paramters */
-;;;335    void USART_Configuration(void)
+;;;342    /* Configure the USART1 synchronous paramters */
+;;;343    void USART_Configuration(void)
 000000  b51f              PUSH     {r0-r4,lr}
-;;;336    {
-;;;337    
-;;;338    
-;;;339    
-;;;340    
-;;;341        USART_InitTypeDef  USART_InitStructure;
-;;;342    
-;;;343        USART_InitStructure.USART_BaudRate            = 9600;
+;;;344    {
+;;;345    
+;;;346    
+;;;347    
+;;;348    
+;;;349        USART_InitTypeDef  USART_InitStructure;
+;;;350    
+;;;351        USART_InitStructure.USART_BaudRate            = 9600;
 000002  f44f5016          MOV      r0,#0x2580
 000006  9000              STR      r0,[sp,#0]
-;;;344        USART_InitStructure.USART_WordLength          = USART_WordLength_8b;
+;;;352        USART_InitStructure.USART_WordLength          = USART_WordLength_8b;
 000008  2000              MOVS     r0,#0
 00000a  f8ad0004          STRH     r0,[sp,#4]
-;;;345        USART_InitStructure.USART_StopBits            = USART_StopBits_1;
+;;;353        USART_InitStructure.USART_StopBits            = USART_StopBits_1;
 00000e  f8ad0006          STRH     r0,[sp,#6]
-;;;346        USART_InitStructure.USART_Parity              = USART_Parity_No;
+;;;354        USART_InitStructure.USART_Parity              = USART_Parity_No;
 000012  f8ad0008          STRH     r0,[sp,#8]
-;;;347    
-;;;348        USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件控制
+;;;355    
+;;;356        USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件控制
 000016  f8ad000c          STRH     r0,[sp,#0xc]
-;;;349        USART_InitStructure.USART_Mode                = USART_Mode_Rx|USART_Mode_Tx;
+;;;357        USART_InitStructure.USART_Mode                = USART_Mode_Rx|USART_Mode_Tx;
 00001a  200c              MOVS     r0,#0xc
 00001c  f8ad000a          STRH     r0,[sp,#0xa]
-;;;350    
-;;;351        USART_Init(USART1, &USART_InitStructure);   
+;;;358    
+;;;359        USART_Init(USART1, &USART_InitStructure);   
 000020  4669              MOV      r1,sp
 000022  480a              LDR      r0,|L5.76|
 000024  f7fffffe          BL       USART_Init
-;;;352        USART_Cmd(USART1, ENABLE);      //串口1使能 
+;;;360        USART_Cmd(USART1, ENABLE);      //串口1使能 
 000028  2101              MOVS     r1,#1
 00002a  4808              LDR      r0,|L5.76|
 00002c  f7fffffe          BL       USART_Cmd
-;;;353    
-;;;354        USART_ITConfig(USART1,USART_IT_RXNE,ENABLE); //打开接收中断	
+;;;361    
+;;;362        USART_ITConfig(USART1,USART_IT_RXNE,ENABLE); //打开接收中断	
 000030  2201              MOVS     r2,#1
 000032  f2405125          MOV      r1,#0x525
 000036  4805              LDR      r0,|L5.76|
 000038  f7fffffe          BL       USART_ITConfig
-;;;355    
-;;;356        while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+;;;363    
+;;;364        while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
 00003c  bf00              NOP      
                   |L5.62|
 00003e  2180              MOVS     r1,#0x80
@@ -259,381 +259,351 @@
 000042  f7fffffe          BL       USART_GetFlagStatus
 000046  2800              CMP      r0,#0
 000048  d0f9              BEQ      |L5.62|
-;;;357    
-;;;358    }
+;;;365    
+;;;366    }
 00004a  bd1f              POP      {r0-r4,pc}
                           ENDP
 
                   |L5.76|
                           DCD      0x40013800
 
+                          AREA ||i.intiSomeThing||, CODE, READONLY, ALIGN=2
+
+                  intiSomeThing PROC
+;;;150     */
+;;;151    void intiSomeThing()
+000000  b510              PUSH     {r4,lr}
+;;;152    {
+;;;153    	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
+;;;154    	received_ATI_OK=0;
+000002  2000              MOVS     r0,#0
+000004  4905              LDR      r1,|L6.28|
+000006  7008              STRB     r0,[r1,#0]
+;;;155        i_BufferM26=0;
+000008  4905              LDR      r1,|L6.32|
+00000a  8008              STRH     r0,[r1,#0]
+;;;156        memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE); 
+00000c  f44f7180          MOV      r1,#0x100
+000010  4804              LDR      r0,|L6.36|
+000012  6800              LDR      r0,[r0,#0]  ; bufferM26
+000014  f7fffffe          BL       __aeabi_memclr
+;;;157    }
+000018  bd10              POP      {r4,pc}
+;;;158    
+                          ENDP
+
+00001a  0000              DCW      0x0000
+                  |L6.28|
+                          DCD      received_ATI_OK
+                  |L6.32|
+                          DCD      i_BufferM26
+                  |L6.36|
+                          DCD      bufferM26
+
                           AREA ||i.main||, CODE, READONLY, ALIGN=2
 
                   main PROC
-;;;150     */
-;;;151    int main(void)
+;;;164     */
+;;;165    int main(void)
 000000  b510              PUSH     {r4,lr}
-;;;152    {
-;;;153    	bufferM26=(uint8_t*)malloc(sizeof(uint8_t)*POOLSIZE);
+;;;166    {
+;;;167    	bufferM26=(uint8_t*)malloc(sizeof(uint8_t)*POOLSIZE);
 000002  f44f7080          MOV      r0,#0x100
 000006  f7fffffe          BL       malloc
-00000a  495b              LDR      r1,|L6.376|
+00000a  4945              LDR      r1,|L7.288|
 00000c  6008              STR      r0,[r1,#0]  ; bufferM26
-;;;154    	buf=(char*)malloc(sizeof(char)*64);
+;;;168    	buf=(char*)malloc(sizeof(char)*64);
 00000e  2040              MOVS     r0,#0x40
 000010  f7fffffe          BL       malloc
-000014  4959              LDR      r1,|L6.380|
+000014  4943              LDR      r1,|L7.292|
 000016  6008              STR      r0,[r1,#0]  ; buf
-;;;155    	
-;;;156        /* 初始化bufferM26 */
-;;;157    	memset(bufferM26,0,sizeof(uint8_t)*POOLSIZE);
+;;;169    	
+;;;170        /* 初始化bufferM26 */
+;;;171    	memset(bufferM26,0,sizeof(uint8_t)*POOLSIZE);
 000018  f44f7180          MOV      r1,#0x100
-00001c  4856              LDR      r0,|L6.376|
+00001c  4840              LDR      r0,|L7.288|
 00001e  6800              LDR      r0,[r0,#0]  ; bufferM26
 000020  f7fffffe          BL       __aeabi_memclr
-;;;158        
-;;;159        RCC_Configuration();
+;;;172        
+;;;173        RCC_Configuration();
 000024  f7fffffe          BL       RCC_Configuration
-;;;160        GPIO_Configuration();
+;;;174        GPIO_Configuration();
 000028  f7fffffe          BL       GPIO_Configuration
-;;;161        USART_Configuration();
+;;;175        USART_Configuration();
 00002c  f7fffffe          BL       USART_Configuration
-;;;162        /* PB3是USART的电源控制 */
-;;;163        GPIO_ResetBits(GPIOB,GPIO_Pin_3);
+;;;176        /* PB3是USART的电源控制 */
+;;;177        GPIO_ResetBits(GPIOB,GPIO_Pin_3);
 000030  2108              MOVS     r1,#8
-000032  4853              LDR      r0,|L6.384|
+000032  483d              LDR      r0,|L7.296|
 000034  f7fffffe          BL       GPIO_ResetBits
-;;;164    			
-;;;165        delay_init() ;
+;;;178    			
+;;;179        delay_init();
 000038  f7fffffe          BL       delay_init
-;;;166        GSM_POWER(1);
+;;;180        GSM_POWER(1);
 00003c  f44f5180          MOV      r1,#0x1000
-000040  4850              LDR      r0,|L6.388|
+000040  483a              LDR      r0,|L7.300|
 000042  f7fffffe          BL       GPIO_SetBits
-;;;167        M26_Init();
+;;;181        M26_Init();
 000046  f7fffffe          BL       M26_Init
-;;;168    	
-;;;169        /* M26初始化的响应 */
-;;;170    	/* received_ATI_OK标志位起来说明ATI响应结束 */
-;;;171    	while(received_ATI_OK!=1)
+;;;182    
+;;;183        /* M26初始化的响应 */
+;;;184    	/* received_ATI_OK标志位起来说明ATI响应结束 */
+;;;185    	while(received_ATI_OK!=1)
 00004a  bf00              NOP      
-                  |L6.76|
-00004c  484e              LDR      r0,|L6.392|
+                  |L7.76|
+00004c  4838              LDR      r0,|L7.304|
 00004e  7800              LDRB     r0,[r0,#0]  ; received_ATI_OK
 000050  2801              CMP      r0,#1
-000052  d1fb              BNE      |L6.76|
-;;;172    	{
-;;;173    	}
-;;;174        /* 响应输出成功后必须初始化 */
-;;;175    	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-;;;176    	received_ATI_OK=0;
-000054  2000              MOVS     r0,#0
-000056  494c              LDR      r1,|L6.392|
-000058  7008              STRB     r0,[r1,#0]
-;;;177        memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-00005a  f44f7180          MOV      r1,#0x100
-00005e  4846              LDR      r0,|L6.376|
-000060  6800              LDR      r0,[r0,#0]  ; bufferM26
-000062  f7fffffe          BL       __aeabi_memclr
-;;;178        i_BufferM26=0;
-000066  2000              MOVS     r0,#0
-000068  4948              LDR      r1,|L6.396|
-00006a  8008              STRH     r0,[r1,#0]
-;;;179        /* 屏幕上打印启动成功 */
-;;;180    	sendStrToUsart1("THE M26 START SUCCESSFULLY!\n");
-00006c  a048              ADR      r0,|L6.400|
-00006e  f7fffffe          BL       sendStrToUsart1
-;;;181    	sendStrToUsart1("Please input ATI code...\n");
-000072  a04f              ADR      r0,|L6.432|
-000074  f7fffffe          BL       sendStrToUsart1
-;;;182    	
-;;;183    	/* 发送"AT" 并返回响应 */
-;;;184    	M26_SendStr("AT\r\n");
-000078  a054              ADR      r0,|L6.460|
-00007a  f7fffffe          BL       M26_SendStr
-;;;185    	while(received_ATI_OK!=1)
-00007e  bf00              NOP      
-                  |L6.128|
-000080  4841              LDR      r0,|L6.392|
-000082  7800              LDRB     r0,[r0,#0]  ; received_ATI_OK
-000084  2801              CMP      r0,#1
-000086  d1fb              BNE      |L6.128|
+000052  d1fb              BNE      |L7.76|
 ;;;186    	{
 ;;;187    	}
-;;;188    	sendStrToUsart1(bufferM26);
-000088  483b              LDR      r0,|L6.376|
-00008a  6800              LDR      r0,[r0,#0]  ; bufferM26
-00008c  f7fffffe          BL       sendStrToUsart1
-;;;189    	sendStrToUsart1("===============================\n");
-000090  a050              ADR      r0,|L6.468|
-000092  f7fffffe          BL       sendStrToUsart1
-;;;190    	/* 响应输出成功后必须初始化 */
-;;;191    	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-;;;192    	received_ATI_OK=0;
-000096  2000              MOVS     r0,#0
-000098  493b              LDR      r1,|L6.392|
-00009a  7008              STRB     r0,[r1,#0]
-;;;193    	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-00009c  f44f7180          MOV      r1,#0x100
-0000a0  4835              LDR      r0,|L6.376|
-0000a2  6800              LDR      r0,[r0,#0]  ; bufferM26
-0000a4  f7fffffe          BL       __aeabi_memclr
-;;;194    	i_BufferM26=0;
-0000a8  2000              MOVS     r0,#0
-0000aa  4938              LDR      r1,|L6.396|
-0000ac  8008              STRH     r0,[r1,#0]
+;;;188        /* 响应输出成功后必须初始化 */ 
+;;;189        USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断
+000054  2201              MOVS     r2,#1
+000056  f2405125          MOV      r1,#0x525
+00005a  4836              LDR      r0,|L7.308|
+00005c  f7fffffe          BL       USART_ITConfig
+;;;190        intiSomeThing();
+000060  f7fffffe          BL       intiSomeThing
+;;;191        USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
+000064  2201              MOVS     r2,#1
+000066  f2405125          MOV      r1,#0x525
+00006a  4832              LDR      r0,|L7.308|
+00006c  f7fffffe          BL       USART_ITConfig
+;;;192        /* 屏幕上打印启动成功 */
+;;;193    	sendStrToUsart1("THE M26 START SUCCESSFULLY!\n");
+000070  a031              ADR      r0,|L7.312|
+000072  f7fffffe          BL       sendStrToUsart1
+;;;194    	sendStrToUsart1("Please input ATI code...\n");
+000076  a038              ADR      r0,|L7.344|
+000078  f7fffffe          BL       sendStrToUsart1
 ;;;195    	
-;;;196    	/* 发送"ATI" 并返回响应 */
-;;;197    	M26_SendStr("ATI\r\n");
-0000ae  a052              ADR      r0,|L6.504|
-0000b0  f7fffffe          BL       M26_SendStr
+;;;196    	/* 发送"AT" 并返回响应 */
+;;;197    	M26_SendStr("AT\r\n");
+00007c  a03d              ADR      r0,|L7.372|
+00007e  f7fffffe          BL       M26_SendStr
 ;;;198    	while(received_ATI_OK!=1)
-0000b4  bf00              NOP      
-                  |L6.182|
-0000b6  4834              LDR      r0,|L6.392|
-0000b8  7800              LDRB     r0,[r0,#0]  ; received_ATI_OK
-0000ba  2801              CMP      r0,#1
-0000bc  d1fb              BNE      |L6.182|
+000082  bf00              NOP      
+                  |L7.132|
+000084  482a              LDR      r0,|L7.304|
+000086  7800              LDRB     r0,[r0,#0]  ; received_ATI_OK
+000088  2801              CMP      r0,#1
+00008a  d1fb              BNE      |L7.132|
 ;;;199    	{
 ;;;200    	}
 ;;;201    	sendStrToUsart1(bufferM26);
-0000be  482e              LDR      r0,|L6.376|
-0000c0  6800              LDR      r0,[r0,#0]  ; bufferM26
-0000c2  f7fffffe          BL       sendStrToUsart1
+00008c  4824              LDR      r0,|L7.288|
+00008e  6800              LDR      r0,[r0,#0]  ; bufferM26
+000090  f7fffffe          BL       sendStrToUsart1
 ;;;202    	sendStrToUsart1("===============================\n");
-0000c6  a043              ADR      r0,|L6.468|
-0000c8  f7fffffe          BL       sendStrToUsart1
-;;;203    	/* 解析Revision */
-;;;204        char *p_temp;
-;;;205        if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
-0000cc  a04c              ADR      r0,|L6.512|
-0000ce  f7fffffe          BL       ATI_wordExpress
-0000d2  0004              MOVS     r4,r0
-0000d4  d00d              BEQ      |L6.242|
-;;;206        {
-;;;207            for(uint8_t i=0;i<=POOLSIZE;i++)
-0000d6  2000              MOVS     r0,#0
-0000d8  e007              B        |L6.234|
-                  |L6.218|
-;;;208            {
-;;;209                if(p_temp[i]=='\n')
-0000da  5c21              LDRB     r1,[r4,r0]
-0000dc  290a              CMP      r1,#0xa
-0000de  d102              BNE      |L6.230|
-;;;210                {
-;;;211                    /* 区分Value与其他字符 */
-;;;212                    p_temp[i]=0;
-0000e0  2100              MOVS     r1,#0
-0000e2  5421              STRB     r1,[r4,r0]
-;;;213                    break;
-0000e4  e004              B        |L6.240|
-                  |L6.230|
-0000e6  1c41              ADDS     r1,r0,#1              ;207
-0000e8  b2c8              UXTB     r0,r1                 ;207
-                  |L6.234|
-0000ea  f5b07f80          CMP      r0,#0x100             ;207
-0000ee  ddf4              BLE      |L6.218|
-                  |L6.240|
-0000f0  bf00              NOP      
-                  |L6.242|
-;;;214                }
-;;;215            }
-;;;216        }
-;;;217        sendStrToUsart1(p_temp);
-0000f2  4620              MOV      r0,r4
-0000f4  f7fffffe          BL       sendStrToUsart1
-;;;218        /* 响应输出成功后必须初始化 */
-;;;219    	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-;;;220    	received_ATI_OK=0;
-0000f8  2000              MOVS     r0,#0
-0000fa  4923              LDR      r1,|L6.392|
-0000fc  7008              STRB     r0,[r1,#0]
-;;;221    	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-0000fe  f44f7180          MOV      r1,#0x100
-000102  481d              LDR      r0,|L6.376|
-000104  6800              LDR      r0,[r0,#0]  ; bufferM26
-000106  f7fffffe          BL       __aeabi_memclr
-;;;222    	i_BufferM26=0;
-00010a  2000              MOVS     r0,#0
-00010c  491f              LDR      r1,|L6.396|
-00010e  8008              STRH     r0,[r1,#0]
-;;;223    	
-;;;224        /* 发送"AT+CGMI" 并返回响应 */
-;;;225    	M26_SendStr("AT+CGMI\r\n");
-000110  a03e              ADR      r0,|L6.524|
-000112  f7fffffe          BL       M26_SendStr
-;;;226    	while(received_ATI_OK!=1)
-000116  bf00              NOP      
-                  |L6.280|
-000118  481b              LDR      r0,|L6.392|
-00011a  7800              LDRB     r0,[r0,#0]  ; received_ATI_OK
-00011c  2801              CMP      r0,#1
-00011e  d1fb              BNE      |L6.280|
-;;;227    	{
-;;;228    	}
-;;;229    	sendStrToUsart1(bufferM26);
-000120  4815              LDR      r0,|L6.376|
-000122  6800              LDR      r0,[r0,#0]  ; bufferM26
-000124  f7fffffe          BL       sendStrToUsart1
-;;;230    	sendStrToUsart1("===============================\n");
-000128  a02a              ADR      r0,|L6.468|
-00012a  f7fffffe          BL       sendStrToUsart1
-;;;231    	/* 解析Revision */
-;;;232        //char *p_temp;
-;;;233        p_temp=NULL;
-00012e  2400              MOVS     r4,#0
-;;;234        if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
-000130  a033              ADR      r0,|L6.512|
-000132  f7fffffe          BL       ATI_wordExpress
-000136  0004              MOVS     r4,r0
-000138  d00d              BEQ      |L6.342|
-;;;235        {
-;;;236            for(uint8_t i=0;i<=POOLSIZE;i++)
-00013a  2000              MOVS     r0,#0
-00013c  e007              B        |L6.334|
-                  |L6.318|
-;;;237            {
-;;;238                if(p_temp[i]=='\n')
-00013e  5c21              LDRB     r1,[r4,r0]
-000140  290a              CMP      r1,#0xa
-000142  d102              BNE      |L6.330|
-;;;239                {
-;;;240                    /* 区分Value与其他字符 */
-;;;241                    p_temp[i]=0;
-000144  2100              MOVS     r1,#0
-000146  5421              STRB     r1,[r4,r0]
-;;;242                    break;
-000148  e004              B        |L6.340|
-                  |L6.330|
-00014a  1c41              ADDS     r1,r0,#1              ;236
-00014c  b2c8              UXTB     r0,r1                 ;236
-                  |L6.334|
-00014e  f5b07f80          CMP      r0,#0x100             ;236
-000152  ddf4              BLE      |L6.318|
-                  |L6.340|
-000154  bf00              NOP      
-                  |L6.342|
-;;;243                }
-;;;244            }
-;;;245        }
-;;;246        sendStrToUsart1(p_temp);
-000156  4620              MOV      r0,r4
-000158  f7fffffe          BL       sendStrToUsart1
-;;;247        /* 响应输出成功后必须初始化 */
-;;;248    	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-;;;249    	received_ATI_OK=0;
-00015c  2000              MOVS     r0,#0
-00015e  490a              LDR      r1,|L6.392|
-000160  7008              STRB     r0,[r1,#0]
-;;;250    	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-000162  f44f7180          MOV      r1,#0x100
-000166  4804              LDR      r0,|L6.376|
-000168  6800              LDR      r0,[r0,#0]  ; bufferM26
-00016a  f7fffffe          BL       __aeabi_memclr
-;;;251    	i_BufferM26=0;
-00016e  2000              MOVS     r0,#0
-000170  4906              LDR      r1,|L6.396|
-000172  8008              STRH     r0,[r1,#0]
-;;;252    	
-;;;253    	/* 串口接收ATI CODE 返回ATI响应*/
-;;;254    	// while(1)
-;;;255    	// {
-;;;256    	// 	/* 必须初始化 */
-;;;257    	// 	memset(buf, 0, sizeof(char)*64);
-;;;258    		
-;;;259    	// 	/* USART1成功接收ATI CODE */
-;;;260    	// 	if(receivedDataFromUSART1(&buf)==1)
-;;;261    	// 	{
-;;;262    	// 		M26_SendStr(buf);
-;;;263    	// 		M26_SendStr("\r\n");
-;;;264    	// 		while(received_ATI_OK!=1)
-;;;265    	// 		{
-;;;266    	// 		}
-;;;267    	// 		sendStrToUsart1(bufferM26);
-;;;268    	// 		sendStrToUsart1("===============================\n");
-;;;269    	// 		/* 响应输出成功后必须初始化
-;;;270    	// 		bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-;;;271    	// 		received_ATI_OK=0;
-;;;272    	// 		memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-;;;273    	// 		i_BufferM26=0;
-;;;274    	// 	}
-;;;275    	// }
-;;;276    }
-000174  bd10              POP      {r4,pc}
-;;;277    
+000094  a039              ADR      r0,|L7.380|
+000096  f7fffffe          BL       sendStrToUsart1
+;;;203        /* 响应输出成功后必须初始化 */  
+;;;204        USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
+00009a  2201              MOVS     r2,#1
+00009c  f2405125          MOV      r1,#0x525
+0000a0  4824              LDR      r0,|L7.308|
+0000a2  f7fffffe          BL       USART_ITConfig
+;;;205    	intiSomeThing();
+0000a6  f7fffffe          BL       intiSomeThing
+;;;206        USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
+0000aa  2201              MOVS     r2,#1
+0000ac  f2405125          MOV      r1,#0x525
+0000b0  4820              LDR      r0,|L7.308|
+0000b2  f7fffffe          BL       USART_ITConfig
+;;;207    	
+;;;208    	/* 发送"ATI" 并返回响应 */
+;;;209    	M26_SendStr("ATI\r\n");
+0000b6  a03a              ADR      r0,|L7.416|
+0000b8  f7fffffe          BL       M26_SendStr
+;;;210    	while(received_ATI_OK!=1)
+0000bc  bf00              NOP      
+                  |L7.190|
+0000be  481c              LDR      r0,|L7.304|
+0000c0  7800              LDRB     r0,[r0,#0]  ; received_ATI_OK
+0000c2  2801              CMP      r0,#1
+0000c4  d1fb              BNE      |L7.190|
+;;;211    	{
+;;;212    	}
+;;;213    	sendStrToUsart1(bufferM26);
+0000c6  4816              LDR      r0,|L7.288|
+0000c8  6800              LDR      r0,[r0,#0]  ; bufferM26
+0000ca  f7fffffe          BL       sendStrToUsart1
+;;;214    	sendStrToUsart1("===============================\n");
+0000ce  a02b              ADR      r0,|L7.380|
+0000d0  f7fffffe          BL       sendStrToUsart1
+;;;215    	/* 解析Revision */
+;;;216        char *p_temp;
+;;;217        if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
+0000d4  a034              ADR      r0,|L7.424|
+0000d6  f7fffffe          BL       ATI_wordExpress
+0000da  0004              MOVS     r4,r0
+0000dc  d00d              BEQ      |L7.250|
+;;;218        {
+;;;219            for(uint8_t i=0;i<=POOLSIZE;i++)
+0000de  2000              MOVS     r0,#0
+0000e0  e007              B        |L7.242|
+                  |L7.226|
+;;;220            {
+;;;221                if(p_temp[i]=='\n')
+0000e2  5c21              LDRB     r1,[r4,r0]
+0000e4  290a              CMP      r1,#0xa
+0000e6  d102              BNE      |L7.238|
+;;;222                {
+;;;223                    /* 区分Value与其他字符 */
+;;;224                    p_temp[i]=0;
+0000e8  2100              MOVS     r1,#0
+0000ea  5421              STRB     r1,[r4,r0]
+;;;225                    break;
+0000ec  e004              B        |L7.248|
+                  |L7.238|
+0000ee  1c41              ADDS     r1,r0,#1              ;219
+0000f0  b2c8              UXTB     r0,r1                 ;219
+                  |L7.242|
+0000f2  f5b07f80          CMP      r0,#0x100             ;219
+0000f6  ddf4              BLE      |L7.226|
+                  |L7.248|
+0000f8  bf00              NOP      
+                  |L7.250|
+;;;226                }
+;;;227            }
+;;;228        }
+;;;229        sendStrToUsart1(p_temp);
+0000fa  4620              MOV      r0,r4
+0000fc  f7fffffe          BL       sendStrToUsart1
+;;;230        /* 响应输出成功后必须初始化 */   
+;;;231        USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
+000100  2201              MOVS     r2,#1
+000102  f2405125          MOV      r1,#0x525
+000106  480b              LDR      r0,|L7.308|
+000108  f7fffffe          BL       USART_ITConfig
+;;;232    	intiSomeThing();
+00010c  f7fffffe          BL       intiSomeThing
+;;;233        USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断 
+000110  2201              MOVS     r2,#1
+000112  f2405125          MOV      r1,#0x525
+000116  4807              LDR      r0,|L7.308|
+000118  f7fffffe          BL       USART_ITConfig
+;;;234    	
+;;;235        /* 发送"AT+CGMI" 并返回响应 */
+;;;236    	// M26_SendStr("AT+CGMI\r\n");
+;;;237    	// while(received_ATI_OK!=1)
+;;;238    	// {
+;;;239    	// }
+;;;240    	// sendStrToUsart1(bufferM26);
+;;;241    	// sendStrToUsart1("===============================\n");
+;;;242    	// /* 解析Revision */
+;;;243        // //char *p_temp;
+;;;244        // p_temp=NULL;
+;;;245        // if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
+;;;246        // {
+;;;247        //     for(uint8_t i=0;i<=POOLSIZE;i++)
+;;;248        //     {
+;;;249        //         if(p_temp[i]=='\n')
+;;;250        //         {
+;;;251        //             /* 区分Value与其他字符 */
+;;;252        //             p_temp[i]=0;
+;;;253        //             break;
+;;;254        //         }
+;;;255        //     }
+;;;256        // }
+;;;257        // sendStrToUsart1(p_temp);
+;;;258        // /* 响应输出成功后必须初始化 */   
+;;;259    	// intiSomeThing();
+;;;260    	
+;;;261    	/* 串口接收ATI CODE 返回ATI响应*/
+;;;262    	// while(1)
+;;;263    	// {
+;;;264    	// 	/* 必须初始化 */
+;;;265    	// 	memset(buf, 0, sizeof(char)*64);
+;;;266    		
+;;;267    	// 	/* USART1成功接收ATI CODE */
+;;;268    	// 	if(receivedDataFromUSART1(&buf)==1)
+;;;269    	// 	{
+;;;270    	// 		M26_SendStr(buf);
+;;;271    	// 		M26_SendStr("\r\n");
+;;;272    	// 		while(received_ATI_OK!=1)
+;;;273    	// 		{
+;;;274    	// 		}
+;;;275    	// 		sendStrToUsart1(bufferM26);
+;;;276    	// 		sendStrToUsart1("===============================\n");
+;;;277    	// 		/* 响应输出成功后必须初始化
+;;;278    	// 		bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
+;;;279    	// 		received_ATI_OK=0;
+;;;280    	// 		memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
+;;;281    	// 		i_BufferM26=0;
+;;;282    	// 	}
+;;;283    	// }
+;;;284    }
+00011c  2000              MOVS     r0,#0
+00011e  bd10              POP      {r4,pc}
+;;;285    
                           ENDP
 
-000176  0000              DCW      0x0000
-                  |L6.376|
+                  |L7.288|
                           DCD      bufferM26
-                  |L6.380|
+                  |L7.292|
                           DCD      buf
-                  |L6.384|
+                  |L7.296|
                           DCD      0x40010c00
-                  |L6.388|
+                  |L7.300|
                           DCD      0x40010800
-                  |L6.392|
+                  |L7.304|
                           DCD      received_ATI_OK
-                  |L6.396|
-                          DCD      i_BufferM26
-                  |L6.400|
-000190  54484520          DCB      "THE M26 START SUCCESSFULLY!\n",0
-000194  4d323620
-000198  53544152
-00019c  54205355
-0001a0  43434553
-0001a4  5346554c
-0001a8  4c59210a
-0001ac  00      
-0001ad  00                DCB      0
-0001ae  00                DCB      0
-0001af  00                DCB      0
-                  |L6.432|
-0001b0  506c6561          DCB      "Please input ATI code...\n",0
-0001b4  73652069
-0001b8  6e707574
-0001bc  20415449
-0001c0  20636f64
-0001c4  652e2e2e
-0001c8  0a00    
-0001ca  00                DCB      0
-0001cb  00                DCB      0
-                  |L6.460|
-0001cc  41540d0a          DCB      "AT\r\n",0
-0001d0  00      
-0001d1  00                DCB      0
-0001d2  00                DCB      0
-0001d3  00                DCB      0
-                  |L6.468|
-0001d4  3d3d3d3d          DCB      "===============================\n",0
-0001d8  3d3d3d3d
-0001dc  3d3d3d3d
-0001e0  3d3d3d3d
-0001e4  3d3d3d3d
-0001e8  3d3d3d3d
-0001ec  3d3d3d3d
-0001f0  3d3d3d0a
-0001f4  00      
-0001f5  00                DCB      0
-0001f6  00                DCB      0
-0001f7  00                DCB      0
-                  |L6.504|
-0001f8  4154490d          DCB      "ATI\r\n",0
-0001fc  0a00    
-0001fe  00                DCB      0
-0001ff  00                DCB      0
-                  |L6.512|
-000200  52657669          DCB      "Revision:",0
-000204  73696f6e
-000208  3a00    
-00020a  00                DCB      0
-00020b  00                DCB      0
-                  |L6.524|
-00020c  41542b43          DCB      "AT+CGMI\r\n",0
-000210  474d490d
-000214  0a00    
-000216  00                DCB      0
-000217  00                DCB      0
+                  |L7.308|
+                          DCD      0x40004400
+                  |L7.312|
+000138  54484520          DCB      "THE M26 START SUCCESSFULLY!\n",0
+00013c  4d323620
+000140  53544152
+000144  54205355
+000148  43434553
+00014c  5346554c
+000150  4c59210a
+000154  00      
+000155  00                DCB      0
+000156  00                DCB      0
+000157  00                DCB      0
+                  |L7.344|
+000158  506c6561          DCB      "Please input ATI code...\n",0
+00015c  73652069
+000160  6e707574
+000164  20415449
+000168  20636f64
+00016c  652e2e2e
+000170  0a00    
+000172  00                DCB      0
+000173  00                DCB      0
+                  |L7.372|
+000174  41540d0a          DCB      "AT\r\n",0
+000178  00      
+000179  00                DCB      0
+00017a  00                DCB      0
+00017b  00                DCB      0
+                  |L7.380|
+00017c  3d3d3d3d          DCB      "===============================\n",0
+000180  3d3d3d3d
+000184  3d3d3d3d
+000188  3d3d3d3d
+00018c  3d3d3d3d
+000190  3d3d3d3d
+000194  3d3d3d3d
+000198  3d3d3d0a
+00019c  00      
+00019d  00                DCB      0
+00019e  00                DCB      0
+00019f  00                DCB      0
+                  |L7.416|
+0001a0  4154490d          DCB      "ATI\r\n",0
+0001a4  0a00    
+0001a6  00                DCB      0
+0001a7  00                DCB      0
+                  |L7.424|
+0001a8  52657669          DCB      "Revision:",0
+0001ac  73696f6e
+0001b0  3a00    
+0001b2  00                DCB      0
+0001b3  00                DCB      0
 
                           AREA ||i.nextWord||, CODE, READONLY, ALIGN=1
 
@@ -649,12 +619,12 @@
 000008  f7fffffe          BL       __aeabi_memclr4
 ;;;49          for(int i=1;i<=64;i++)
 00000c  2001              MOVS     r0,#1
-00000e  e000              B        |L7.18|
-                  |L7.16|
+00000e  e000              B        |L8.18|
+                  |L8.16|
 000010  1c40              ADDS     r0,r0,#1
-                  |L7.18|
+                  |L8.18|
 000012  2840              CMP      r0,#0x40
-000014  ddfc              BLE      |L7.16|
+000014  ddfc              BLE      |L8.16|
 ;;;50          {
 ;;;51             
 ;;;52     
@@ -689,28 +659,28 @@
 ;;;123        for(int i=1;;i++)
 000014  2701              MOVS     r7,#1
 000016  bf00              NOP      
-                  |L8.24|
+                  |L9.24|
 ;;;124        {
 ;;;125            retry=0;
 000018  2500              MOVS     r5,#0
 ;;;126            while(USART_GetFlagStatus(USART1, USART_FLAG_RXNE) != SET)
-00001a  e00a              B        |L8.50|
-                  |L8.28|
+00001a  e00a              B        |L9.50|
+                  |L9.28|
 ;;;127            {
 ;;;128                /* 如果始终收不到信息那么就退出此函数 */
 ;;;129                retry++;
 00001c  1c6d              ADDS     r5,r5,#1
 ;;;130                if(retry>2000)
 00001e  f5b56ffa          CMP      r5,#0x7d0
-000022  dd06              BLE      |L8.50|
+000022  dd06              BLE      |L9.50|
 ;;;131                {
 ;;;132                    if(i==1)
 000024  2f01              CMP      r7,#1
-000026  d102              BNE      |L8.46|
+000026  d102              BNE      |L9.46|
 ;;;133                    {
 ;;;134                        return 0;/* 如果第一次接收不到, 那么返回失败 */
 000028  2000              MOVS     r0,#0
-                  |L8.42|
+                  |L9.42|
 ;;;135                    }
 ;;;136                    return 1;
 ;;;137                }          
@@ -721,27 +691,27 @@
 ;;;142        }
 ;;;143    }
 00002a  e8bd81f0          POP      {r4-r8,pc}
-                  |L8.46|
+                  |L9.46|
 00002e  2001              MOVS     r0,#1                 ;136
-000030  e7fb              B        |L8.42|
-                  |L8.50|
+000030  e7fb              B        |L9.42|
+                  |L9.50|
 000032  2120              MOVS     r1,#0x20              ;126
-000034  4806              LDR      r0,|L8.80|
+000034  4806              LDR      r0,|L9.80|
 000036  f7fffffe          BL       USART_GetFlagStatus
 00003a  2801              CMP      r0,#1                 ;126
-00003c  d1ee              BNE      |L8.28|
-00003e  4804              LDR      r0,|L8.80|
+00003c  d1ee              BNE      |L9.28|
+00003e  4804              LDR      r0,|L9.80|
 000040  f7fffffe          BL       USART_ReceiveData
 000044  6821              LDR      r1,[r4,#0]            ;140
 000046  5588              STRB     r0,[r1,r6]            ;140
 000048  1c76              ADDS     r6,r6,#1              ;141
 00004a  1c7f              ADDS     r7,r7,#1              ;123
-00004c  e7e4              B        |L8.24|
+00004c  e7e4              B        |L9.24|
 ;;;144    
                           ENDP
 
 00004e  0000              DCW      0x0000
-                  |L8.80|
+                  |L9.80|
                           DCD      0x40013800
 
                           AREA ||i.sendStrToUsart1||, CODE, READONLY, ALIGN=2
@@ -753,52 +723,52 @@
 ;;;92     {
 000002  4604              MOV      r4,r0
 ;;;93         while(*str)
-000004  e013              B        |L9.46|
-                  |L9.6|
+000004  e013              B        |L10.46|
+                  |L10.6|
 ;;;94         {
 ;;;95             int retry=0;
 000006  2500              MOVS     r5,#0
 ;;;96             USART_SendData(USART1,*str);
 000008  7821              LDRB     r1,[r4,#0]
-00000a  480b              LDR      r0,|L9.56|
+00000a  480b              LDR      r0,|L10.56|
 00000c  f7fffffe          BL       USART_SendData
 ;;;97             str++;
 000010  1c64              ADDS     r4,r4,#1
 ;;;98             while(USART_GetFlagStatus(USART1, USART_FLAG_TC) != SET)
-000012  e004              B        |L9.30|
-                  |L9.20|
+000012  e004              B        |L10.30|
+                  |L10.20|
 ;;;99             {
 ;;;100                retry++;
 000014  1c6d              ADDS     r5,r5,#1
 ;;;101                if(retry>2000)
 000016  f5b56ffa          CMP      r5,#0x7d0
-00001a  dd00              BLE      |L9.30|
+00001a  dd00              BLE      |L10.30|
 ;;;102                {
 ;;;103                    break;   
-00001c  e005              B        |L9.42|
-                  |L9.30|
+00001c  e005              B        |L10.42|
+                  |L10.30|
 00001e  2140              MOVS     r1,#0x40              ;98
-000020  4805              LDR      r0,|L9.56|
+000020  4805              LDR      r0,|L10.56|
 000022  f7fffffe          BL       USART_GetFlagStatus
 000026  2801              CMP      r0,#1                 ;98
-000028  d1f4              BNE      |L9.20|
-                  |L9.42|
+000028  d1f4              BNE      |L10.20|
+                  |L10.42|
 00002a  bf00              NOP      
 ;;;104                }            
 ;;;105            }
 ;;;106        }
 00002c  bf00              NOP      
-                  |L9.46|
+                  |L10.46|
 00002e  7820              LDRB     r0,[r4,#0]            ;93
 000030  2800              CMP      r0,#0                 ;93
-000032  d1e8              BNE      |L9.6|
+000032  d1e8              BNE      |L10.6|
 ;;;107    }
 000034  bd70              POP      {r4-r6,pc}
 ;;;108    
                           ENDP
 
 000036  0000              DCW      0x0000
-                  |L9.56|
+                  |L10.56|
                           DCD      0x40013800
 
                           AREA ||.data||, DATA, ALIGN=2

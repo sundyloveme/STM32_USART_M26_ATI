@@ -143,6 +143,20 @@ int receivedDataFromUSART1(char **buf)
 }
 
 /**
+ * @brief 初始化函数 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标
+ * @param 
+ * @retval 
+ * @author Sundy
+ */
+void intiSomeThing()
+{
+	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
+	received_ATI_OK=0;
+    i_BufferM26=0;
+    memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE); 
+}
+
+/**
  * @brief 入口    
  * @param  None
  * @retval None
@@ -165,17 +179,16 @@ int main(void)
     delay_init();
     GSM_POWER(1);
     M26_Init();
-	
+
     /* M26初始化的响应 */
 	/* received_ATI_OK标志位起来说明ATI响应结束 */
 	while(received_ATI_OK!=1)
 	{
 	}
-    /* 响应输出成功后必须初始化 */
-	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-	received_ATI_OK=0;
-    memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-    i_BufferM26=0;
+    /* 响应输出成功后必须初始化 */ 
+    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断
+    intiSomeThing();
+    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
     /* 屏幕上打印启动成功 */
 	sendStrToUsart1("THE M26 START SUCCESSFULLY!\n");
 	sendStrToUsart1("Please input ATI code...\n");
@@ -187,11 +200,10 @@ int main(void)
 	}
 	sendStrToUsart1(bufferM26);
 	sendStrToUsart1("===============================\n");
-	/* 响应输出成功后必须初始化 */
-	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-	received_ATI_OK=0;
-	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-	i_BufferM26=0;
+    /* 响应输出成功后必须初始化 */  
+    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
+	intiSomeThing();
+    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
 	
 	/* 发送"ATI" 并返回响应 */
 	M26_SendStr("ATI\r\n");
@@ -215,40 +227,36 @@ int main(void)
         }
     }
     sendStrToUsart1(p_temp);
-    /* 响应输出成功后必须初始化 */
-	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-	received_ATI_OK=0;
-	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-	i_BufferM26=0;
+    /* 响应输出成功后必须初始化 */   
+    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
+	intiSomeThing();
+    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断 
 	
     /* 发送"AT+CGMI" 并返回响应 */
-	M26_SendStr("AT+CGMI\r\n");
-	while(received_ATI_OK!=1)
-	{
-	}
-	sendStrToUsart1(bufferM26);
-	sendStrToUsart1("===============================\n");
-	/* 解析Revision */
-    //char *p_temp;
-    p_temp=NULL;
-    if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
-    {
-        for(uint8_t i=0;i<=POOLSIZE;i++)
-        {
-            if(p_temp[i]=='\n')
-            {
-                /* 区分Value与其他字符 */
-                p_temp[i]=0;
-                break;
-            }
-        }
-    }
-    sendStrToUsart1(p_temp);
-    /* 响应输出成功后必须初始化 */
-	/* 初始化bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-	received_ATI_OK=0;
-	memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-	i_BufferM26=0;
+	// M26_SendStr("AT+CGMI\r\n");
+	// while(received_ATI_OK!=1)
+	// {
+	// }
+	// sendStrToUsart1(bufferM26);
+	// sendStrToUsart1("===============================\n");
+	// /* 解析Revision */
+    // //char *p_temp;
+    // p_temp=NULL;
+    // if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
+    // {
+    //     for(uint8_t i=0;i<=POOLSIZE;i++)
+    //     {
+    //         if(p_temp[i]=='\n')
+    //         {
+    //             /* 区分Value与其他字符 */
+    //             p_temp[i]=0;
+    //             break;
+    //         }
+    //     }
+    // }
+    // sendStrToUsart1(p_temp);
+    // /* 响应输出成功后必须初始化 */   
+	// intiSomeThing();
 	
 	/* 串口接收ATI CODE 返回ATI响应*/
 	// while(1)
