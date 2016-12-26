@@ -31,16 +31,15 @@ compiling main.c...
    }
 ..\USER\main.c(48): warning:  #177-D: variable "temp" was declared but never referenced
        uint8_t temp[64]={0};
-..\USER\main.c(75): warning:  #120-D: return value type does not match the function type
-              return old_bufferM26; 
-..\USER\main.c(201): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+..\USER\main.c(67): warning:  #144-D: a value of type "uint8_t *" cannot be used to initialize an entity of type "char *"
+      char* old_bufferM26 = bufferM26;
+..\USER\main.c(209): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
         sendStrToUsart1(bufferM26);
-..\USER\main.c(213): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+..\USER\main.c(221): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
         sendStrToUsart1(bufferM26);
 ..\USER\main.c: 5 warnings, 0 errors
-compiling stm32f10x_it.c...
 linking...
-Program Size: Code=3516 RO-data=336 RW-data=68 ZI-data=1540  
+Program Size: Code=3508 RO-data=336 RW-data=68 ZI-data=1540  
 FromELF: creating hex file...
 ".\Obj\Project.axf" - 0 Error(s), 5 Warning(s).
 

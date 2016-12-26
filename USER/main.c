@@ -1,4 +1,4 @@
-﻿/**
+/**
  ******************************************************************************
  * @author  None
  * @brief   USART通信 以及GPRS(M26)通信
@@ -64,22 +64,30 @@ char *buf;
 char* ATI_wordExpress(const char *key)
 {
     /* bufferM26的拷贝 */
-    uint8_t* old_bufferM26 = bufferM26;
+    char* old_bufferM26 = bufferM26;
 
     /* 解析的原理是在母串中匹配Key,成功后返回之后的母串 */
-    for(uint16_t i=0;i<=POOLSIZE;i++)
+    char* pch = NULL;
+    pch = strstr(old_bufferM26,key); // str1母串 str2子串
+    pch = pch + strlen(key);
+
+    if(pch)
     {
-        if(memcmp(key,old_bufferM26,strlen(key))==0)
+        for(uint8_t i=0;i<=POOLSIZE;i++)
         {
-            old_bufferM26 += strlen(key);
-            return old_bufferM26; 
-        }
-        else
-        {
-            old_bufferM26++;
-        }
+            if(pch[i]=='\n')
+            {
+                /* 区分Value与其他字符 */
+                pch[i]=0;
+                break;
+            }
+        }    
+        return pch;
     }
-    return NULL;
+    else
+    {
+        return NULL;
+    }
 }
 
  /**
@@ -213,74 +221,15 @@ int main(void)
 	sendStrToUsart1(bufferM26);
 	sendStrToUsart1("===============================\n");
 	/* 解析Revision */
-    char *p_temp;
+    char *p_temp=NULL;
     if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
     {
-        for(uint8_t i=0;i<=POOLSIZE;i++)
-        {
-            if(p_temp[i]=='\n')
-            {
-                /* 区分Value与其他字符 */
-                p_temp[i]=0;
-                break;
-            }
-        }
+        sendStrToUsart1(p_temp);
     }
-    sendStrToUsart1(p_temp);
     /* 响应输出成功后必须初始化 */   
     USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
 	intiSomeThing();
     USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断 
-	
-    /* 发送"AT+CGMI" 并返回响应 */
-	// M26_SendStr("AT+CGMI\r\n");
-	// while(received_ATI_OK!=1)
-	// {
-	// }
-	// sendStrToUsart1(bufferM26);
-	// sendStrToUsart1("===============================\n");
-	// /* 解析Revision */
-    // //char *p_temp;
-    // p_temp=NULL;
-    // if( (p_temp = ATI_wordExpress("Revision:")) != NULL)
-    // {
-    //     for(uint8_t i=0;i<=POOLSIZE;i++)
-    //     {
-    //         if(p_temp[i]=='\n')
-    //         {
-    //             /* 区分Value与其他字符 */
-    //             p_temp[i]=0;
-    //             break;
-    //         }
-    //     }
-    // }
-    // sendStrToUsart1(p_temp);
-    // /* 响应输出成功后必须初始化 */   
-	// intiSomeThing();
-	
-	/* 串口接收ATI CODE 返回ATI响应*/
-	// while(1)
-	// {
-	// 	/* 必须初始化 */
-	// 	memset(buf, 0, sizeof(char)*64);
-		
-	// 	/* USART1成功接收ATI CODE */
-	// 	if(receivedDataFromUSART1(&buf)==1)
-	// 	{
-	// 		M26_SendStr(buf);
-	// 		M26_SendStr("\r\n");
-	// 		while(received_ATI_OK!=1)
-	// 		{
-	// 		}
-	// 		sendStrToUsart1(bufferM26);
-	// 		sendStrToUsart1("===============================\n");
-	// 		/* 响应输出成功后必须初始化
-	// 		bufferM26缓冲区, received_ATI_OK标志位, i_BufferM26下标 */
-	// 		received_ATI_OK=0;
-	// 		memset(bufferM26, 0, sizeof(uint8_t)*POOLSIZE);
-	// 		i_BufferM26=0;
-	// 	}
-	// }
 }
 
 /**
