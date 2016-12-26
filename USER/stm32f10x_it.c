@@ -22,7 +22,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-
+#define POOLSIZE 256
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -173,6 +173,7 @@ void USART2_IRQHandler(void)
 				received_ATI_OK=1;
 			}
 			i_BufferM26++;
+			i_BufferM26 = i_BufferM26 % POOLSIZE;
 		}
 	}
 }
