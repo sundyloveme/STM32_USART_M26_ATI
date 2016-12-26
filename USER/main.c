@@ -162,7 +162,7 @@ int main(void)
     /* PB3是USART的电源控制 */
     GPIO_ResetBits(GPIOB,GPIO_Pin_3);
 			
-    delay_init() ;
+    delay_init();
     GSM_POWER(1);
     M26_Init();
 	
