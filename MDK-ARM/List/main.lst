@@ -26014,42 +26014,45 @@ N    GSM_POWER(1);
 X    (1 ? GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x1000)):GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x1000)));
 N    M26_Init();
 N
+N	
 N    /* M26初始化的响应 */
 N	/* received_ATI_OK标志位起来说明ATI响应结束 */
 N	while(received_ATI_OK!=1)
 N	{
 N	}
 N    /* 响应输出成功后必须初始化 */ 
-N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断
-X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N    USART_ITConfig(USART2, USART_IT_RXNE, DISABLE); // 关闭中断
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), DISABLE); 
 N    intiSomeThing();
 N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
 X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
 N    /* 屏幕上打印启动成功 */
 N	sendStrToUsart1("THE M26 START SUCCESSFULLY!\n");
 N	sendStrToUsart1("Please input ATI code...\n");
+N
 N	
 N	/* 发送"AT" 并返回响应 */
 N	M26_SendStr("AT\r\n");
 N	while(received_ATI_OK!=1)
 N	{
 N	}
-W "..\USER\main.c" 209 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+W "..\USER\main.c" 211 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
 N	sendStrToUsart1(bufferM26);
 N	sendStrToUsart1("===============================\n");
 N    /* 响应输出成功后必须初始化 */  
-N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
-X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N    USART_ITConfig(USART2, USART_IT_RXNE, DISABLE); // 关闭中断 
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), DISABLE); 
 N	intiSomeThing();
 N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断
 X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N
 N	
 N	/* 发送"ATI" 并返回响应 */
 N	M26_SendStr("ATI\r\n");
 N	while(received_ATI_OK!=1)
 N	{
 N	}
-W "..\USER\main.c" 221 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+W "..\USER\main.c" 224 18 argument of type "uint8_t *" is incompatible with parameter of type "const char *"
 N	sendStrToUsart1(bufferM26);
 N	sendStrToUsart1("===============================\n");
 N	/* 解析Revision */
@@ -26061,8 +26064,8 @@ N    {
 N        sendStrToUsart1(p_temp);
 N    }
 N    /* 响应输出成功后必须初始化 */   
-N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 关闭中断 
-X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
+N    USART_ITConfig(USART2, USART_IT_RXNE, DISABLE); // 关闭中断 
+X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), DISABLE); 
 N	intiSomeThing();
 N    USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); // 打开中断 
 X    USART_ITConfig(((USART_TypeDef *) (((uint32_t)0x40000000) + 0x4400)), ((uint16_t)0x0525), ENABLE); 
